@@ -32,6 +32,13 @@ export const metadata: Metadata = {
   description: HOME_DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: SEO_KEYWORDS,
+  verification: {
+    google: "838eo6Gckysvid4iFBUIV3zZJf-CuVtXBw9dNaj20JE",
+    other: {
+      "naver-site-verification": "7d2efde9e5b05b38fc28f2a103883bb465fb3f33",
+      "msvalidate.01": "7CC2274F4DAA4C8A93EB5F4D8259E6A3",
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
