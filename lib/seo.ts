@@ -29,19 +29,13 @@ export const THUMBNAIL_IMAGE_ALT =
 export const HOME_THUMBNAIL_ALT =
   "소상공인 폐업지원금, 점포철거비 지원, 폐업 철거와 원상복구 안내 썸네일";
 
-const DEFAULT_SITE_URL = "http://localhost:3000";
+export const SITE_URL = "https://closing-support.vercel.app";
 
 type SeoMode = "support" | "demolition" | "restoration" | "cost" | "consult";
 type ToneMode = "calm" | "friendly" | "practical" | "concise" | "careful";
 
 export function getSiteUrl(): string {
-  const rawUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL;
-
-  try {
-    return new URL(rawUrl).origin;
-  } catch {
-    return DEFAULT_SITE_URL;
-  }
+  return SITE_URL;
 }
 
 export function buildCanonicalUrl(slug: string): string {
@@ -173,7 +167,6 @@ export function buildDetailMetadata(
   metadata: DetailMetadata,
 ): Metadata {
   const canonicalUrl = buildCanonicalUrl(page.slug);
-  const ogImagePath = buildDetailOgImagePath(page, metadata);
   const ogImageUrl = buildDetailOgImageUrl(page, metadata);
   const keyword = page.메인키워드 || fallbackKeyword(page);
   const imageAlt = `${keyword} 폐업 철거와 원상복구 지원 안내 썸네일`;
@@ -191,7 +184,7 @@ export function buildDetailMetadata(
       siteName: SITE_NAME,
       images: [
         {
-          url: ogImagePath,
+          url: ogImageUrl,
           width: THUMBNAIL_IMAGE_WIDTH,
           height: THUMBNAIL_IMAGE_HEIGHT,
           alt: imageAlt,
@@ -206,7 +199,7 @@ export function buildDetailMetadata(
       description: metadata.description,
       images: [
         {
-          url: ogImagePath,
+          url: ogImageUrl,
           alt: imageAlt,
         },
       ],

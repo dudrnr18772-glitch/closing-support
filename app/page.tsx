@@ -8,10 +8,11 @@ import {
   HOME_TITLE,
   MAIN_KEYWORD,
   SEO_KEYWORDS,
+  SITE_URL,
   SITE_NAME,
   THUMBNAIL_IMAGE_HEIGHT,
   THUMBNAIL_IMAGE_WIDTH,
-  buildHomeOgImagePath,
+  buildHomeOgImageUrl,
   buildHomeJsonLd,
   serializeJsonLd,
 } from "@/lib/seo";
@@ -26,16 +27,16 @@ export const metadata: Metadata = {
   description: HOME_DESCRIPTION,
   keywords: SEO_KEYWORDS,
   alternates: {
-    canonical: "/",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
-    url: "/",
+    url: SITE_URL,
     siteName: SITE_NAME,
     images: [
       {
-        url: buildHomeOgImagePath(),
+        url: buildHomeOgImageUrl(),
         width: THUMBNAIL_IMAGE_WIDTH,
         height: THUMBNAIL_IMAGE_HEIGHT,
         alt: HOME_THUMBNAIL_ALT,
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     description: HOME_DESCRIPTION,
     images: [
       {
-        url: buildHomeOgImagePath(),
+        url: buildHomeOgImageUrl(),
         alt: HOME_THUMBNAIL_ALT,
       },
     ],

@@ -4,6 +4,7 @@ import {
   HOME_DESCRIPTION,
   HOME_TITLE,
   SEO_KEYWORDS,
+  SITE_URL,
   SITE_NAME,
   THUMBNAIL_IMAGE_ALT,
   THUMBNAIL_IMAGE_HEIGHT,
@@ -22,16 +23,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-function getMetadataBase() {
-  try {
-    return new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
-  } catch {
-    return new URL("http://localhost:3000");
-  }
-}
-
 export const metadata: Metadata = {
-  metadataBase: getMetadataBase(),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: HOME_TITLE,
     template: `%s | ${SITE_NAME}`,
@@ -64,11 +57,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
-    url: "/",
+    url: SITE_URL,
     siteName: SITE_NAME,
     images: [
       {
-        url: THUMBNAIL_IMAGE_PATH,
+        url: `${SITE_URL}${THUMBNAIL_IMAGE_PATH}`,
         width: THUMBNAIL_IMAGE_WIDTH,
         height: THUMBNAIL_IMAGE_HEIGHT,
         alt: THUMBNAIL_IMAGE_ALT,
@@ -83,13 +76,13 @@ export const metadata: Metadata = {
     description: HOME_DESCRIPTION,
     images: [
       {
-        url: THUMBNAIL_IMAGE_PATH,
+        url: `${SITE_URL}${THUMBNAIL_IMAGE_PATH}`,
         alt: THUMBNAIL_IMAGE_ALT,
       },
     ],
   },
   other: {
-    thumbnail: THUMBNAIL_IMAGE_PATH,
+    thumbnail: `${SITE_URL}${THUMBNAIL_IMAGE_PATH}`,
   },
 };
 
