@@ -31,7 +31,9 @@ type DetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export const revalidate = 300;
+export const dynamic = "force-static";
+export const dynamicParams = false;
+export const revalidate = false;
 
 export async function generateStaticParams() {
   const pages = await getPublishedPages();

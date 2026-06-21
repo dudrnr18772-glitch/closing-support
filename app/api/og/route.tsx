@@ -9,7 +9,7 @@ import {
 } from "@/lib/seo";
 
 export const runtime = "nodejs";
-export const revalidate = 86400;
+export const revalidate = false;
 
 const defaultTitle = "폐업 철거·원상복구 업체 견적 확인";
 const defaultSubtitle = "점포철거비 지원과 공사 범위를 한 번에 확인";

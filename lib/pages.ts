@@ -1,27 +1,22 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import type { PageRow, PageType } from "@/types/page";
 
-export const PAGE_REVALIDATE_SECONDS = 5 * 60;
-
-const CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-M3ywu0vBZI0azvtZxkRY5pg91z7iwqIgWBJpAIgsDwL1m5IMwwQKt4yXfch5-l119IaQe0dzRUqZ/pub?gid=0&single=true&output=csv";
+const PAGES_CSV_PATH = join(process.cwd(), "data", "pages.csv");
 
 type PageCache = {
-  expiresAt: number;
   promise: Promise<PageRow[]>;
 };
 
 let pageCache: PageCache | null = null;
 
 export async function getAllPages(): Promise<PageRow[]> {
-  const now = Date.now();
-
-  if (pageCache && pageCache.expiresAt > now) {
+  if (pageCache) {
     return pageCache.promise;
   }
 
   const promise = loadPages();
   pageCache = {
-    expiresAt: now + PAGE_REVALIDATE_SECONDS * 1000,
     promise,
   };
 
@@ -48,18 +43,7 @@ export async function getPageBySlug(slug: string): Promise<PageRow | null> {
 
 async function loadPages(): Promise<PageRow[]> {
   try {
-    const response = await fetch(CSV_URL, {
-      next: { revalidate: PAGE_REVALIDATE_SECONDS },
-    });
-
-    if (!response.ok) {
-      console.error(
-        `[pages] Failed to fetch page data: ${response.status} ${response.statusText}`,
-      );
-      return [];
-    }
-
-    const csv = await response.text();
+    const csv = await readFile(PAGES_CSV_PATH, "utf8");
     return normalizePages(parseCsv(csv));
   } catch (error) {
     console.error("[pages] Failed to load page data.", error);
